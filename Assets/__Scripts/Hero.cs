@@ -14,8 +14,9 @@ public class Hero : MonoBehaviour
     public float pitchMult = 30;
 
     [Header("Dynamic")]
-    [Range(0, 4)]                                          // b
-    public float shieldLevel = 1;
+    [Range(0, 4)] [SerializeField]                                        // b
+    private float _shieldLevel = 1;
+
     [Tooltip("This field holds a reference to the last triggering GameObject")]
     private GameObject lastTriggerGo = null;
 
@@ -67,6 +68,20 @@ public class Hero : MonoBehaviour
         else
         {
             Debug.LogWarning("Shield trigger hit by non-Enemy: " + go.name);    // g
+        }
+    }
+
+    public float shieldLevel
+    {
+        get { return (_shieldLevel); }                                      // b
+        private set
+        {                                                         // c
+            _shieldLevel = Mathf.Min(value, 4);                             // d
+            // If the shield is going to be set to less than zero…
+            if (value < 0)
+            {                                                  // e
+                Destroy(this.gameObject);  // Destroy the Hero
+            }
         }
     }
 

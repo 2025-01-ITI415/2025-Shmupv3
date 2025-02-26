@@ -29,7 +29,6 @@ public class BoundsCheck : MonoBehaviour
     [Header("Dynamic")]
     public eScreenLocs screenLocs = eScreenLocs.onScreen;
         
-    public bool isOnScreen = true;
     public float camWidth;
     public float camHeight;
 
@@ -47,38 +46,50 @@ public class BoundsCheck : MonoBehaviour
         if (boundsType == eType.outset) checkRadius = radius;
 
         Vector3 pos = transform.position;
-        isOnScreen = true;
+        screenLocs = eScreenLocs.onScreen;
 
         // Restrict the X position to camWidth
         if (pos.x > camWidth + checkRadius)
         {                                                   // e
-            pos.x = camWidth + checkRadius;                               // e
-            isOnScreen = false;
+            pos.x = camWidth + checkRadius;
+            screenLocs |= eScreenLocs.offRight;
+            
         }
         if (pos.x < -camWidth - checkRadius)
         {                                                   // e
-            pos.x = -camWidth - checkRadius;                              // e
-            isOnScreen = false;
+            pos.x = -camWidth - checkRadius;
+            screenLocs |= eScreenLocs.offLeft;
+            
         }
 
         // Restrict the Y position to camHeight
         if (pos.y > camHeight + checkRadius)
         {                                              // e
-            pos.y = camHeight + checkRadius;                                                // e
-            isOnScreen = false;
+            pos.y = camHeight + checkRadius;
+            screenLocs |= eScreenLocs.offUp;
+            
         }
         if (pos.y < -camHeight - checkRadius)
         {                                             // e
-            pos.y = -camHeight - checkRadius;                                               // e
-            isOnScreen = false;
+            pos.y = -camHeight - checkRadius;
+            screenLocs |= eScreenLocs.offDown;
+            
         }
 
         if (keepOnScreen && !isOnScreen)
         {
             transform.position = pos;
-            isOnScreen = true;
+            screenLocs = eScreenLocs.onScreen;
+
+            
         }
 
 
     }
+
+    public bool isOnScreen
+    {
+        get { return (screenLocs == eScreenLocs.onScreen); }
+    }
+
 }

@@ -13,7 +13,8 @@ public class Enemy : MonoBehaviour
     public float health = 10;    // Damage needed to destroy this enemy
     public int score = 100;   // Points earned for destroying this
 
-    private BoundsCheck bndCheck;                                             // b
+    // private BoundsCheck bndCheck;                                             // b
+    protected BoundsCheck bndCheck;
 
     void Awake()
     {                                                            // c
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy hit by " + coll.gameObject.name);
         GameObject otherGO = coll.gameObject;                                  // a
         if (otherGO.GetComponent<ProjectileHero>() != null)
-        {               
+        {
             Destroy(otherGO);      // Destroy the Projectile
             Destroy(gameObject);   // Destroy this Enemy GameObject 
         }

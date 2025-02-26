@@ -9,6 +9,16 @@ using UnityEngine;
 public class BoundsCheck : MonoBehaviour
 {                                    // a
 
+    [System.Flags]
+    public enum eScreenLocs
+    {
+        onScreen = 0,  // 0000 in binary (zero)
+        offRight = 1,  // 0001 in binary
+        offLeft = 2,  // 0010 in binary
+        offUp = 4,  // 0100 in binary
+        offDown = 8   // 1000 in binary
+    }
+
     public enum eType { center, inset, outset };                              // a
 
     [Header("Inscribed")]
@@ -17,6 +27,8 @@ public class BoundsCheck : MonoBehaviour
     public bool keepOnScreen = true;
 
     [Header("Dynamic")]
+    public eScreenLocs screenLocs = eScreenLocs.onScreen;
+        
     public bool isOnScreen = true;
     public float camWidth;
     public float camHeight;
@@ -35,7 +47,7 @@ public class BoundsCheck : MonoBehaviour
         if (boundsType == eType.outset) checkRadius = radius;
 
         Vector3 pos = transform.position;
-        isOnScreen= true;
+        isOnScreen = true;
 
         // Restrict the X position to camWidth
         if (pos.x > camWidth + checkRadius)
@@ -66,7 +78,7 @@ public class BoundsCheck : MonoBehaviour
             transform.position = pos;
             isOnScreen = true;
         }
-              
-        
+
+
     }
 }

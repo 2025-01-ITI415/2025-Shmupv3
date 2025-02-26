@@ -28,7 +28,7 @@ public class BoundsCheck : MonoBehaviour
 
     [Header("Dynamic")]
     public eScreenLocs screenLocs = eScreenLocs.onScreen;
-        
+
     public float camWidth;
     public float camHeight;
 
@@ -53,13 +53,13 @@ public class BoundsCheck : MonoBehaviour
         {                                                   // e
             pos.x = camWidth + checkRadius;
             screenLocs |= eScreenLocs.offRight;
-            
+
         }
         if (pos.x < -camWidth - checkRadius)
         {                                                   // e
             pos.x = -camWidth - checkRadius;
             screenLocs |= eScreenLocs.offLeft;
-            
+
         }
 
         // Restrict the Y position to camHeight
@@ -67,13 +67,13 @@ public class BoundsCheck : MonoBehaviour
         {                                              // e
             pos.y = camHeight + checkRadius;
             screenLocs |= eScreenLocs.offUp;
-            
+
         }
         if (pos.y < -camHeight - checkRadius)
         {                                             // e
             pos.y = -camHeight - checkRadius;
             screenLocs |= eScreenLocs.offDown;
-            
+
         }
 
         if (keepOnScreen && !isOnScreen)
@@ -81,7 +81,7 @@ public class BoundsCheck : MonoBehaviour
             transform.position = pos;
             screenLocs = eScreenLocs.onScreen;
 
-            
+
         }
 
 
@@ -91,5 +91,13 @@ public class BoundsCheck : MonoBehaviour
     {
         get { return (screenLocs == eScreenLocs.onScreen); }
     }
+
+
+    public bool LocIs(eScreenLocs checkLoc)
+    {
+        if (checkLoc == eScreenLocs.onScreen) return isOnScreen;         
+        return ((screenLocs & checkLoc) == checkLoc);                     
+    }
+
 
 }

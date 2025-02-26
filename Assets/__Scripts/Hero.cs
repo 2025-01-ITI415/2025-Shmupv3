@@ -81,6 +81,7 @@ public class Hero : MonoBehaviour
             if (value < 0)
             {                                                  // e
                 Destroy(this.gameObject);  // Destroy the Hero
+                Main.HERO_DIED();
             }
         }
     }

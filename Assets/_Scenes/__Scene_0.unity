@@ -400,6 +400,8 @@ MonoBehaviour:
   speed: 30
   rollMult: -45
   pitchMult: 30
+  projectilePrefab: {fileID: 8884485313326729009, guid: 93cdb1254cc5842aeb5402d7b9f73a99, type: 3}
+  projectileSpeed: 40
   _shieldLevel: 1
 --- !u!114 &930863984
 MonoBehaviour:

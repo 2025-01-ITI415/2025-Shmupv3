@@ -16,6 +16,8 @@ public class Hero : MonoBehaviour
     [Header("Dynamic")]
     [Range(0, 4)]                                          // b
     public float shieldLevel = 1;
+    [Tooltip("This field holds a reference to the last triggering GameObject")]
+    private GameObject lastTriggerGo = null;
 
     void Awake()
     {
@@ -44,4 +46,28 @@ public class Hero : MonoBehaviour
         // Rotate the ship to make it feel more dynamic                       // e
         transform.rotation = Quaternion.Euler(vAxis * pitchMult, hAxis * rollMult, 0);
     }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        Transform rootT = other.gameObject.transform.root;                    // a
+        GameObject go = rootT.gameObject;
+        //Debug.Log("Shield trigger hit by: " + go.gameObject.name);
+
+        // Make sure it’s not the same triggering go as last time
+        if (go == lastTriggerGo) return;                                    // c
+        lastTriggerGo = go;                                                   // d
+
+        Enemy enemy = go.GetComponent<Enemy>();                               // e
+        if (enemy != null)
+        {  // If the shield was triggered by an enemy
+            shieldLevel--;        // Decrease the level of the shield by 1
+            Destroy(go);          // … and Destroy the enemy                  // f
+        }
+        else
+        {
+            Debug.LogWarning("Shield trigger hit by non-Enemy: " + go.name);    // g
+        }
+    }
+
 }

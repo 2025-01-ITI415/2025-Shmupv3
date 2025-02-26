@@ -9,6 +9,12 @@ using UnityEngine;
 public class BoundsCheck : MonoBehaviour
 {                                    // a
 
+    public enum eType { center, inset, outset };                              // a
+
+    [Header("Inscribed")]
+    public eType boundsType = eType.center;                                   // a
+    public float radius = 1f;
+
     [Header("Dynamic")]
     public float camWidth;
     public float camHeight;
@@ -21,26 +27,31 @@ public class BoundsCheck : MonoBehaviour
 
     void LateUpdate()
     {                                                       // d
+        // Find the checkRadius that will enable center, inset, or outset     // b
+        float checkRadius = 0;
+        if (boundsType == eType.inset) checkRadius = -radius;
+        if (boundsType == eType.outset) checkRadius = radius;
+
         Vector3 pos = transform.position;
 
         // Restrict the X position to camWidth
-        if (pos.x > camWidth)
+        if (pos.x > camWidth + checkRadius)
         {                                                   // e
-            pos.x = camWidth;                               // e
+            pos.x = camWidth + checkRadius;                               // e
         }
-        if (pos.x < -camWidth)
+        if (pos.x < -camWidth - checkRadius)
         {                                                   // e
-            pos.x = -camWidth;                              // e
+            pos.x = -camWidth - checkRadius;                              // e
         }
 
         // Restrict the Y position to camHeight
-        if (pos.y > camHeight)
+        if (pos.y > camHeight + checkRadius)
         {                                              // e
-            pos.y = camHeight;                                                // e
+            pos.y = camHeight + checkRadius;                                                // e
         }
-        if (pos.y < -camHeight)
+        if (pos.y < -camHeight - checkRadius)
         {                                             // e
-            pos.y = -camHeight;                                               // e
+            pos.y = -camHeight - checkRadius;                                               // e
         }
 
         transform.position = pos;

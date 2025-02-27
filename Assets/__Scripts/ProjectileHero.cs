@@ -43,7 +43,7 @@ public class ProjectileHero : MonoBehaviour
     /// </summary>
     /// <param name="eType">The eWeaponType to use.</param>
     public void SetType(eWeaponType eType)
-    {                              
+    {
         _type = eType;
         WeaponDefinition def = Main.GET_WEAPON_DEFINITION(_type);
         rend.material.color = def.projectileColor;

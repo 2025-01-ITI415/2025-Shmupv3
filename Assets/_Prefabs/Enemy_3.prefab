@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6217192625371338092}
   - component: {fileID: -1707321171045915600}
   - component: {fileID: 4490262518263950056}
+  - component: {fileID: 5281922542635113148}
   m_Layer: 7
   m_Name: Enemy_3
   m_TagString: Untagged
@@ -101,6 +102,22 @@ MonoBehaviour:
   screenLocs: 0
   camWidth: 0
   camHeight: 0
+--- !u!114 &5281922542635113148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6217192625371338093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c788f5e2d34bec99acba4add21271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  fireRate: 0.3
+  health: 10
+  score: 100
 --- !u!1001 &6217192625199160741
 PrefabInstance:
   m_ObjectHideFlags: 0

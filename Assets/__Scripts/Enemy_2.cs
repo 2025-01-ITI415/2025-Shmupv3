@@ -4,16 +4,23 @@ using UnityEngine;
 
 
 public class Enemy_2 : Enemy
-{      // Enemy_2 also extends the Enemy class   // a
+{      // Enemy_2 also extends the Enemy class
+
+
     [Header("Enemy_2 Inscribed Fields")]
     public float lifeTime = 10;
+
+
     // Enemy_2 uses a Sine wave to modify a 2-point linear interpolation
     [Tooltip("Determines how much the Sine wave will ease the interpolation")]
     public float sinEccentricity = 0.6f;
+    public AnimationCurve rotCurve;
+
 
     [Header("Enemy_2 Private Fields")]
     [SerializeField] private float birthTime; // Interpolation start time   // b
     [SerializeField] private Vector3 p0, p1;    // Lerp_points
+
 
     void Start()
     {
@@ -52,6 +59,11 @@ public class Enemy_2 : Enemy
             Destroy(this.gameObject);                                      // f
             return;
         }
+
+        // Use the AnimationCurve to set the rotation about Y
+        float shipRot = rotCurve.Evaluate(u) * 360;                           // b
+        if (p0.x > p1.x) shipRot = -shipRot;                                  // c
+        transform.rotation = Quaternion.Euler(0, shipRot, 0);
 
         // Adjust u by adding a U Curve based on a Sine wave
         u = u + sinEccentricity * (Mathf.Sin(u * Mathf.PI * 2));

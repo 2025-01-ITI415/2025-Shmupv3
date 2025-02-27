@@ -14,6 +14,7 @@ public class Hero : MonoBehaviour
     public float pitchMult = 30;
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
+    public Weapon[] weapons;
 
     [Header("Dynamic")]
     [Range(0, 4)]
@@ -97,10 +98,16 @@ public class Hero : MonoBehaviour
         lastTriggerGo = go;                                                   // d
 
         Enemy enemy = go.GetComponent<Enemy>();                               // e
+        PowerUp pUp = go.GetComponent<PowerUp>();
+
         if (enemy != null)
         {  // If the shield was triggered by an enemy
             shieldLevel--;        // Decrease the level of the shield by 1
             Destroy(go);          // … and Destroy the enemy                  // f
+        }
+        else if (pUp != null)
+        {
+            AbsorbPowerUp(pUp);
         }
         else
         {
@@ -121,6 +128,17 @@ public class Hero : MonoBehaviour
                 Main.HERO_DIED();
             }
         }
+    }
+
+    public void AbsorbPowerUp(PowerUp pUp)
+    {
+        Debug.Log("Absorbed PowerUp: " + pUp.type);                         // b
+        switch (pUp.type)
+        {
+            // Leave this switch block empty for now.
+
+        }
+        pUp.AbsorbedBy(this.gameObject);
     }
 
 }
